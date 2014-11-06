@@ -1,4 +1,4 @@
-var app = angular.module('starter.controllers', []);
+var app = angular.module('starter.controllers', ['collection.service']);
 
 var appController = function($scope, $ionicModal, $timeout, $location){
 
@@ -38,3 +38,30 @@ var appController = function($scope, $ionicModal, $timeout, $location){
 }
 appController.$inject = ['$scope', '$ionicModal', '$timeout','$location'];
 app.controller('AppCtrl', appController);
+
+
+//-----------------//
+        //   //
+          //
+
+     ///////////       
+      //    //
+        ////     
+//-----------------//
+
+var resultsController = function(collectAPI){
+
+  var _this = this;
+
+  this.results = {};
+
+  collectAPI.getCollects().then(function(response){
+    _this.results = response.data;
+    console.log(_this.results);
+  });
+
+
+}
+
+resultsController.$inject = ['collectService'];
+app.controller('ResultsCtrl', resultsController);
