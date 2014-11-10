@@ -23,7 +23,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: "/browse",
       views: {
         'menuContent' :{
-          templateUrl: "templates/browse.html"
+          templateUrl: "templates/browse.html",
+          controller: "ResultsCtrl"
+        }
+      }
+    })
+
+    .state('app.results', {
+      url: "/results",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/results.html",
+          controller: "resultsCtrl"
         }
       }
     })

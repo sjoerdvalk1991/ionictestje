@@ -4,5 +4,11 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <h1>Browse</h1>
+    <div ng-controller="ResultsCtrl as resultsCtrl">
+		<div ng-repeat="result in resultsCtrl.results">
+  			<h1>{{result.description}}</h1>
+  		</div>
+  	</div>
+ </div> 
   </ion-content>
 </ion-view>

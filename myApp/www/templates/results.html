@@ -1,4 +1,7 @@
 <div ng-controller="ResultsCtrl as resultsCtrl">
-  	<ul ng-repeat="description in artObject">
-  	<h1>{{artObject.description}}</h1>
-  </div> 
+	<ion-list>
+	</ion-list>
+	<div ng-repeat="result in resultsCtrl.results">
+  		<h1>{{result.description}}</h1>
+  	</div>
+ </div> 

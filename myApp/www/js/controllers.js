@@ -56,7 +56,7 @@ var resultsController = function(collectAPI){
   this.results = {};
 
   collectAPI.getCollects().then(function(response){
-    _this.results = response.data;
+    _this.results = response.data.artObject;
     console.log(_this.results);
   });
 
