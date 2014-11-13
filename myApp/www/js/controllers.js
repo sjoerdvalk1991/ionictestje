@@ -55,10 +55,13 @@ var resultsController = function(collectAPI){
 
   this.results = {};
 
-  collectAPI.getCollects().then(function(response){
-    _this.results = response.data.artObject;
+
+  collectAPI.getCollects().success(function(data){
+    _this.results = data.artObjects;
     console.log(_this.results);
+
   });
+
 
 
 }

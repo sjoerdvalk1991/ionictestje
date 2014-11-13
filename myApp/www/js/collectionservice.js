@@ -7,7 +7,7 @@ module.factory('collectService', function($http) {
 
   collectAPI.getCollects = function(){
     return $http({
-      url: 'https://www.rijksmuseum.nl/api/nl/collection/sk-c-5?key=hnQJ1CmI&format=json'
+      url: 'https://www.rijksmuseum.nl/api/nl/collection?key=hnQJ1CmI&format=json&type=schilderij&artist=rembrandt-harmensz-van-rijn&p=55'
     });
   }
 

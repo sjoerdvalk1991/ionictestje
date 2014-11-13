@@ -1,1 +1,8 @@
 /* Empty. Add your own CSS if you like */
+.img {
+	width:98%;
+	margin-left: 1%;
+	}
+.hide {
+	display: none;
+}
