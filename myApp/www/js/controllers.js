@@ -62,9 +62,24 @@ var resultsController = function(collectAPI){
 
   });
 
-
-
 }
 
 resultsController.$inject = ['collectService'];
 app.controller('ResultsCtrl', resultsController);
+
+var resultController = function(params, collectAPI){
+  var _this = this;
+
+  this.result = {};
+
+  collectAPI.collectDetail(params.id).success(function(data){
+    _this.result = data.artObject;
+    console.log(_this.result);
+
+  });
+}
+
+resultController.$inject = ['$stateParams', 'collectService'];
+app.controller('ResultCtrl', resultController);
+
+

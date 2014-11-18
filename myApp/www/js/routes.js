@@ -20,10 +20,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 
     .state('app.browse', {
-      url: "/browse",
+      url: "/results",
       views: {
         'menuContent' :{
-          templateUrl: "templates/browse.html",
+          templateUrl: "templates/results.html",
           controller: "ResultsCtrl"
         }
       }
@@ -38,6 +38,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+
+    .state('app.single', {
+      url: "/result/:id",
+      views: {
+        'menuContent' :{
+            templateUrl: "templates/result.html",
+            controller: 'ResultCtrl'
+        }
+      } 
+    });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/search');
 });
