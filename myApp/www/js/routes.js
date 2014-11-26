@@ -29,6 +29,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
       }
     })
 
+    .state('app.saved', {
+      url:"/saved",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/my-saved.html",
+          controller: "SavedCtrl"
+        }
+      }
+    })
+
     .state('app.results', {
       url: "/results",
       views: {
@@ -49,7 +59,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       } 
     });
 
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/search');
+  $urlRouterProvider.otherwise('/app/results');
 });
 

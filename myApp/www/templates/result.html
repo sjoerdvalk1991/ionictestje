@@ -4,7 +4,9 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
 	<img class="img" ng-if="resultCtrl.result.webImage" ng-src="{{resultCtrl.result.webImage.url}}" alt="{{resultCtrl.result.title}} Cover Image">
-	<h2>{{resultCtrl.result.title}}</h1>
+	<h2 class="content">{{resultCtrl.result.title}}</h2>
+	<p class="content">{{resultCtrl.result.description}}</p>
   </div>
+  	<a href="#/app/saved" class="button center button-large" ng-click="resultCtrl.resultSaver();">Save</a>
   </ion-content>
 </ion-view>

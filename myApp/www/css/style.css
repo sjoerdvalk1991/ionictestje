@@ -6,3 +6,16 @@
 .hide {
 	display: none;
 }
+
+.content {
+	width: 98%;
+	margin-left: 1%;
+}
+
+.center {
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+  		-ms-transform: translateX(-50%);
+  		transform: translateX(-50%);
+
+}
