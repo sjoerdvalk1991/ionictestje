@@ -4,10 +4,10 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
    <h1>Daily art</h1>
-  <div ng-controller="ResultsCtrl as resultsCtrl">
-  <a ng-repeat="result in resultsCtrl.results" href="#/app/result/{{result.objectNumber}}">
-          <img class="img" ng-if="result.webImage" ng-src="{{result.webImage.url}}" alt="{{result.title}} Cover Image">
-    	</div>
+  <div class="come-in" ng-controller="ResultsCtrl as resultsCtrl">
+    <a ng-repeat="result in resultsCtrl.results" href="#/app/result/{{result.objectNumber}}">
+    <img class="img art-image" ng-if="result.webImage" ng-src="{{result.webImage.url}}" alt="{{result.title}} Cover Image">
+  </div>
   </a>
   </div>
  </div> 

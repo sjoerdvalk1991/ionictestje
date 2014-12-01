@@ -1,6 +1,6 @@
 var app = angular.module('starter.controllers', ['collection.service']);
 
-var appController = function($scope, $ionicModal, $timeout, $location){
+var appController = function($scope, $ionicModal, $timeout, $location, $q){
 
   var _this = this;
   // Form data for the login modal
@@ -56,38 +56,56 @@ var resultsController = function(collectAPI){
   this.results = {};
 
   _this.check = 1;
+
+  if(!localStorage.getItem('timeStamp')){
+    _this.timeMs = 0;
+  }else{
+    _this.timeMs = JSON.parse(localStorage.getItem('dailyart'));
+  }
   
   
   if(!localStorage.getItem('dailyart')){
-    
+    var timeStamp = Date.now();
+    console.log(timeStamp);
+    _this.timeMs = timeStamp;
+    localStorage.setItem('timeStamp', JSON.stringify(timeStamp));
     collectAPI.getCollects().success(function(data){
-        localStorage.setItem('dailyart', JSON.stringify (data));
-        var d = new Date();
-        var day = d.getDate();
-        console.log(day);
-        _this.check = 1;
-        _this.results = data.artObjects;
-      console.log(_this.results);
+      localStorage.setItem('dailyart', JSON.stringify (data));
+      _this.check = 1;
+      _this.results = data.artObjects;
+      $('.come-in').fadeIn( "slow", function (){
+        console.log('testing');
+      });
+        
     });
+  }else if(_this.timeMs >= (_this.Ms + 86400000)){
+    localStorage.removeItem('timeStamp');
+    localStorage.removeItem('dailyart');
+
   }else{
     var localArt = JSON.parse(localStorage.getItem('dailyart'));
-    _this.results = localArt.artObjects;    
-  }
+    console.log(_this.timeMs);
+    _this.results = localArt.artObjects;
+    $('.come-in').hide();
+    $('.come-in').fadeIn( "slow", function (){
+      console.log('testing');
+  });
 
   };
+
+};
 
 
 resultsController.$inject = ['collectService'];
 app.controller('ResultsCtrl', resultsController);
 
-var resultController = function(params, collectAPI){
+var resultController = function(params, collectAPI, $q){
   var _this = this;
 
   this.result = {};
 
   collectAPI.collectDetail(params.id).success(function(data){
     _this.result = data.artObject;
-    console.log(_this.result);
   });
 
   _this.resultSaver = function(){
@@ -95,22 +113,59 @@ var resultController = function(params, collectAPI){
       var artObjects = [];
       artObjects.push(_this.result);
       localStorage.setItem('saved', JSON.stringify (artObjects));
-
-
     }else{
+
+      var deffered = $q.defer();
+
       var savedArt = [];
       savedArt = JSON.parse(localStorage.getItem('saved'));
-      savedArt.push(_this.result);
-      localStorage.setItem('saved', JSON.stringify (savedArt));    
+      var i = 0;
+      var c = 0;
+      for (; i < savedArt.length; i++) {
+        var checker;
+        i += checker = (savedArt[i].id === _this.result.id);  
+          console.log(checker);
+          console.log(i);
 
+        if(checker === true){
+          console.log('already saved');
+          c++
+        }else{
+        };
+
+      };
+
+      deffered.resolve(resultCheck(c, savedArt));
+
+      return deffered.promise;
+
+
+      function resultCheck(c, savedArt){
+        
+        console.log(c);
+        console.log(savedArt.length);
+        if (c === 0){
+          savedArt.push(_this.result);
+          localStorage.setItem('saved', JSON.stringify (savedArt));
+
+        }else{
+          console.log('and again');
+        }
+      }
     }
-
   }
-
 }
 
+//-----------------//
+        //   //
+          //
 
-resultController.$inject = ['$stateParams', 'collectService'];
+     ///////////       
+      //    //
+        ////     
+//-----------------//
+
+resultController.$inject = ['$stateParams', 'collectService', '$q'];
 app.controller('ResultCtrl', resultController);
 
 
@@ -121,13 +176,10 @@ var savedController = function(params){
 
   this.getSaved = function(){
     var saved = JSON.parse(localStorage.getItem('saved'));
-    _this.checkSaved(saved);
     return saved;
   }
 
-  this.checkSaved = function(){
-
-  }
+  
 
   this.results = _this.getSaved();
 
