@@ -49,7 +49,7 @@ app.controller('AppCtrl', appController);
         ////     
 //-----------------//
 
-var resultsController = function(collectAPI){
+var resultsController = function(collectAPI, $q, $timeout){
 
   var _this = this;
 
@@ -65,6 +65,8 @@ var resultsController = function(collectAPI){
   
   
   if(!localStorage.getItem('dailyart')){
+
+    var deffered = $q.defer();
     var timeStamp = Date.now();
     console.log(timeStamp);
     _this.timeMs = timeStamp;
@@ -73,9 +75,23 @@ var resultsController = function(collectAPI){
       localStorage.setItem('dailyart', JSON.stringify (data));
       _this.check = 1;
       _this.results = data.artObjects;
-      $('.come-in').fadeIn( "slow", function (){
-        console.log('testing');
-      });
+      $('.come-in').hide();
+      deffered.resolve(fade());
+      
+      return deffered.promise;
+
+      function fade(){
+        $timeout(function(){
+          $('.come-in').fadeIn( "slow", function (){
+            console.log('testing');
+          });
+
+        },3000);
+        
+        
+
+      }
+     
         
     });
   }else if(_this.timeMs >= (_this.Ms + 86400000)){
@@ -96,10 +112,19 @@ var resultsController = function(collectAPI){
 };
 
 
-resultsController.$inject = ['collectService'];
+resultsController.$inject = ['collectService', '$q', '$timeout'];
 app.controller('ResultsCtrl', resultsController);
 
-var resultController = function(params, collectAPI, $q){
+//-----------------//
+        //   //
+          //
+
+     ///////////       
+      //    //
+        ////     
+//-----------------//
+
+var resultController = function(params, collectAPI, $q, $scope, $ionicPopup){
   var _this = this;
 
   this.result = {};
@@ -107,6 +132,17 @@ var resultController = function(params, collectAPI, $q){
   collectAPI.collectDetail(params.id).success(function(data){
     _this.result = data.artObject;
   });
+
+    $scope.showAlert = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Schilderij bestaat al',
+       template: 'Je hebt dit schilderij al eerder opgeslagen'
+     });
+     alertPopup.then(function(res) {
+       console.log('Thank you for not eating my delicious ice cream cone');
+     });
+   };
+
 
   _this.resultSaver = function(){
     if(!localStorage.getItem('saved')){
@@ -149,12 +185,15 @@ var resultController = function(params, collectAPI, $q){
           localStorage.setItem('saved', JSON.stringify (savedArt));
 
         }else{
-          console.log('and again');
+          $scope.showAlert();
         }
       }
     }
-  }
+  } 
 }
+
+resultController.$inject = ['$stateParams', 'collectService', '$q', '$scope', '$ionicPopup'];
+app.controller('ResultCtrl', resultController);
 
 //-----------------//
         //   //
@@ -164,9 +203,6 @@ var resultController = function(params, collectAPI, $q){
       //    //
         ////     
 //-----------------//
-
-resultController.$inject = ['$stateParams', 'collectService', '$q'];
-app.controller('ResultCtrl', resultController);
 
 
 var savedController = function(params){
@@ -179,6 +215,10 @@ var savedController = function(params){
     return saved;
   }
 
+  this.alreadySaved = function(){
+    console.log('test');
+  }
+
   
 
   this.results = _this.getSaved();
@@ -187,5 +227,9 @@ var savedController = function(params){
 
 savedController.$inject = ['$stateParams'];
 app.controller('SavedCtrl', savedController);
+
+var popupController = function($scope){
+
+}
 
 
