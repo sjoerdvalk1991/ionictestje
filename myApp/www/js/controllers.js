@@ -67,10 +67,8 @@ var resultsController = function(collectAPI, $q, $timeout){
   _this.timeMs = JSON.parse(localStorage.getItem('timeStamp'));
 
   }
-  
-  
-  if(!localStorage.getItem('dailyart')){
 
+  this.loadArt = function(){
     var deffered = $q.defer();
     var timeStamp = Date.now();
     console.log(timeStamp);
@@ -91,43 +89,22 @@ var resultsController = function(collectAPI, $q, $timeout){
             console.log('testing');
           });
 
-        },3000);
-        
-        
-
+        },3000);  
       }
-     
-        
+       
     });
+  }
+  
+  
+  if(!localStorage.getItem('dailyart')){
+    _this.loadArt();
+  
   }else if(_this.timeMs+86400000< _this.timeNow){
     console.log('test remove');
     localStorage.removeItem('timeStamp');
     localStorage.removeItem('dailyart');
 
-    var deffered = $q.defer();
-    var timeStamp = Date.now();
-    console.log(timeStamp);
-    _this.timeMs = timeStamp;
-    localStorage.setItem('timeStamp', JSON.stringify(timeStamp));
-    collectAPI.getCollects().success(function(data){
-      localStorage.setItem('dailyart', JSON.stringify (data));
-      _this.check = 1;
-      _this.results = data.artObjects;
-      $('.come-in').hide();
-      deffered.resolve(smoof());
-      
-      return deffered.promise;
-
-      function smoof(){
-        $timeout(function(){
-          $('.come-in').fadeIn( "slow", function (){
-            console.log('testing');
-          });
-
-        },3000);
-
-      }
-    });
+    _this.loadArt();
 
   }else{
     var localArt = JSON.parse(localStorage.getItem('dailyart'));
@@ -141,6 +118,9 @@ var resultsController = function(collectAPI, $q, $timeout){
   };
 
 };
+
+
+
 
 
 resultsController.$inject = ['collectService', '$q', '$timeout'];
@@ -256,6 +236,24 @@ var savedController = function(params){
 
 savedController.$inject = ['$stateParams'];
 app.controller('SavedCtrl', savedController);
+
+// var savedResultController = function(){
+//   var _this = this;
+
+//   this.result = {};
+
+//   collectAPI.collectDetail(params.id).success(function(data){
+//     _this.result = data.artObject;
+//   });
+
+//   var deffered = $q.defer();
+
+//   var savedArt = [];
+//   savedArt = JSON.parse(localStorage.getItem('saved'));
+//   var i = 0;
+
+
+// }
 
 
 
