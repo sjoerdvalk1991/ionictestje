@@ -97,3 +97,13 @@
   		transform: translateX(-50%);
 
 }
+.oldscool{
+  font-family: DanielScript;
+  font-size: 22px;
+}
+
+
+@font-face {
+font-family: DanielScript;
+src: url("./fonts/DanielScript.otf") format("opentype");
+}

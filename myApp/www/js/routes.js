@@ -24,7 +24,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent' :{
           templateUrl: "templates/results.html",
-          controller: "ResultsCtrl"
         }
       }
     })
@@ -34,7 +33,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent' :{
           templateUrl: "templates/my-saved.html",
-          controller: "SavedCtrl"
         }
       }
     })
@@ -44,7 +42,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent' :{
           templateUrl: "templates/results.html",
-          controller: "resultsCtrl"
         }
       }
     })
@@ -54,7 +51,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'menuContent' :{
             templateUrl: "templates/result.html",
-            controller: 'ResultCtrl'
         }
       } 
     });
