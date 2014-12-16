@@ -284,7 +284,6 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
     for (; i < savedArt.length; i++) {
         if(savedArt[i].id == _this.result.id){
           //not in array
-          $scope.showAlert();
         }else{
           newSave.push(savedArt[i]);
         }
