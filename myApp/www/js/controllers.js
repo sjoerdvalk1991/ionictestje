@@ -141,15 +141,25 @@ var resultController = function(params, collectAPI, $q, $scope, $ionicPopup){
     _this.result = data.artObject;
   });
 
-    $scope.showAlert = function() {
-     var alertPopup = $ionicPopup.alert({
-       title: 'Schilderij bestaat al',
-       template: 'Je hebt dit schilderij al eerder opgeslagen'
-     });
-     alertPopup.then(function(res) {
-       console.log('Thank you for not eating my delicious ice cream cone');
-     });
-   };
+  $scope.showAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Schilderij bestaat al',
+     template: 'Je hebt dit schilderij al eerder opgeslagen'
+   });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+  };
+
+   $scope.showAlertAlready = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Gelukt',
+     template: 'Schilderij succesvol opgeslagen'
+   });
+   alertPopup.then(function(res) {
+     console.log('Thank you for not eating my delicious ice cream cone');
+   });
+  };
 
 
   _this.resultSaver = function(){
@@ -190,6 +200,7 @@ var resultController = function(params, collectAPI, $q, $scope, $ionicPopup){
         console.log(savedArt.length);
         if (c === 0){
           savedArt.push(_this.result);
+          $scope.showAlertAlready();
           localStorage.setItem('saved', JSON.stringify (savedArt));
 
         }else{
@@ -255,7 +266,7 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
   $scope.showAlert = function() {
      var alertPopup = $ionicPopup.alert({
        title: 'Geslaagd!',
-       template: 'Schilderij is succesvol verwijdert'
+       template: 'Schilderij is succesvol verwijderd'
      });
      alertPopup.then(function(res) {
        console.log('Thank you for not eating my delicious ice cream cone');
@@ -273,6 +284,7 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
     for (; i < savedArt.length; i++) {
         if(savedArt[i].id == _this.result.id){
           //not in array
+          $scope.showAlert();
         }else{
           newSave.push(savedArt[i]);
         }
@@ -289,8 +301,10 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
         console.log('test');
         localStorage.setItem('saved', JSON.stringify (newSave));
         $state.go('app.saved', {url:"/saved"});
+        $scope.showAlert();
       }else{
         $state.go('app.saved', {url:"/saved"});
+        $scope.showAlert();
         localStorage.setItem('saved', JSON.stringify (newSave));
       }
     }
