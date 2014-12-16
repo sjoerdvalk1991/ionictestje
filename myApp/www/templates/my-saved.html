@@ -5,7 +5,7 @@
   <ion-content class="has-header">
    <h1>Saved art</h1>
   <div ng-controller="SavedCtrl as savedCtrl">
-  <a ng-repeat="result in savedCtrl.results" href="#/app/result/{{result.objectNumber}}">
+  <a ng-repeat="result in savedCtrl.results" href="#/app/savedresult/{{result.objectNumber}}">
           <img class="img" ng-if="result.webImage" ng-src="{{result.webImage.url}}" alt="{{result.title}} Cover Image">
     	</div>
   </a>

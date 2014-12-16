@@ -57,8 +57,6 @@ var resultsController = function(collectAPI, $q, $timeout){
 
   _this.timeNow = Date.now();
 
-  console.log(_this.timeNow);
-
   _this.check = 1;
 
   if(!localStorage.getItem('timeStamp')){
@@ -70,8 +68,7 @@ var resultsController = function(collectAPI, $q, $timeout){
 
   this.loadArt = function(){
     var deffered = $q.defer();
-    var timeStamp = Date.now();
-    console.log(timeStamp);
+    var timeStamp = Date.now(); 
     _this.timeMs = timeStamp;
     localStorage.setItem('timeStamp', JSON.stringify(timeStamp));
     collectAPI.getCollects().success(function(data){
@@ -237,23 +234,77 @@ var savedController = function(params){
 savedController.$inject = ['$stateParams'];
 app.controller('SavedCtrl', savedController);
 
-// var savedResultController = function(){
-//   var _this = this;
+//-----------------//
+        //   //
+          //
 
-//   this.result = {};
+     ///////////       
+      //    //
+        ////     
+//-----------------//
 
-//   collectAPI.collectDetail(params.id).success(function(data){
-//     _this.result = data.artObject;
-//   });
+var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup, $state){
+  var _this = this;
 
-//   var deffered = $q.defer();
+  this.result = {};
 
-//   var savedArt = [];
-//   savedArt = JSON.parse(localStorage.getItem('saved'));
-//   var i = 0;
+  collectAPI.collectDetail(params.id).success(function(data){
+    _this.result = data.artObject;
+  });
+
+  $scope.showAlert = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Geslaagd!',
+       template: 'Schilderij is succesvol verwijdert'
+     });
+     alertPopup.then(function(res) {
+       console.log('Thank you for not eating my delicious ice cream cone');
+     });
+   };
 
 
-// }
+  this.compareResult = function(){
+
+    var savedArt = [];
+    savedArt = JSON.parse(localStorage.getItem('saved'));
+    var deffered = $q.defer();
+    var newSave = [];
+    var i = 0;
+    for (; i < savedArt.length; i++) {
+        if(savedArt[i].id == _this.result.id){
+          //not in array
+        }else{
+          newSave.push(savedArt[i]);
+        }
+
+    }
+     
+    deffered.resolve(resultUpdate(newSave));
+
+    return deffered.promise;
+  
+    function resultUpdate(newSave){
+      console.log(newSave.length);
+      if(newSave.length > 0){
+        console.log('test');
+        localStorage.setItem('saved', JSON.stringify (newSave));
+        $state.go('app.saved', {url:"/saved"});
+      }else{
+        $state.go('app.saved', {url:"/saved"});
+        localStorage.setItem('saved', JSON.stringify (newSave));
+      }
+    }
+  }
+
+  this.resultDelete = function(){
+
+      _this.compareResult ();
+  }
+
+}
+
+savedResultController.$inject = ['$stateParams', 'collectService', '$q', '$scope', '$ionicPopup', '$state'];
+app.controller('SavedResultCtrl', savedResultController);
 
 
 

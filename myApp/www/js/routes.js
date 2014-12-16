@@ -53,7 +53,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "templates/result.html",
         }
       } 
-    });
+    })  
+
+    .state('app.resultsaved', {
+      url: "/savedresult/:id",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/saved-result.html"
+        }
+      }
+    })
 
 
   // if none of the above states are matched, use this as the fallback
