@@ -279,13 +279,13 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
     var savedArt = [];
     savedArt = JSON.parse(localStorage.getItem('saved'));
     var deffered = $q.defer();
-    var newSave = [];
     var i = 0;
+    var newSave = [];
     for (; i < savedArt.length; i++) {
         if(savedArt[i].id == _this.result.id){
-          //not in array
+          
         }else{
-          newSave.push(savedArt[i]);
+          newSave.push(_this.result);
         }
 
     }
