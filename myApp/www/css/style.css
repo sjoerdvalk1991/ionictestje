@@ -1,4 +1,6 @@
 /* Empty. Add your own CSS if you like */
+@import url(http://fonts.googleapis.com/css?family=Marck+Script);
+
 .img {
 	width:98%;
 	margin-left: 1%;
@@ -9,6 +11,43 @@
 
 .text-deco-none{
   text-decoration: none;
+}
+
+.content{
+  color: #fff;
+}
+
+.nav-clear{
+  background-color: #5F021F;
+}
+
+.menu{
+  background-color: #5F021F !important;
+}
+
+.button{
+  background-color: #5F021F !important;
+  color: #fff;
+}
+
+.button-large{
+  margin-top: 30px;
+}
+
+.item {
+  background-color: #5F021F;
+  color: #fff;
+  font-family: 'Marck Script', cursive !important;
+}
+
+.item .item-content{
+  background-color: #5F021F !important;
+  font-family: 'Marck Script', cursive !important;
+  color: #fff !important;
+}
+
+.item-content:active{
+  background-color: #000 !important;
 }
 
   .cssanimations .art-image.bounce-in {
@@ -98,12 +137,9 @@
 
 }
 .oldscool{
-  font-family: DanielScript;
+  font-family: 'Marck Script', cursive !important;
   font-size: 22px;
 }
 
 
-@font-face {
-font-family: DanielScript;
-src: url("./fonts/DanielScript.otf") format("opentype");
-}
+
