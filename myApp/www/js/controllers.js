@@ -285,7 +285,7 @@ var savedResultController = function(params, collectAPI, $q, $scope, $ionicPopup
         if(savedArt[i].id == _this.result.id){
           
         }else{
-          newSave.push(_this.result);
+          newSave.push(savedArt[i]);
         }
 
     }
